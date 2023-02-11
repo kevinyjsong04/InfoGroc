@@ -101,20 +101,20 @@ export default function App() {
   }
 
   const goToDisplay = () => {
-    let index = binarySearch(data.incomes, incomeIn);
-    setIncomePct(Math.floor((index / data.incomes.length) * 100));
-    index = binarySearch(data.wine, wineIn);
-    setWinePct(Math.floor((index / data.wine.length) * 100));
-    index = binarySearch(data.fruits, fruitIn);
-    setFruitPct(Math.floor((index / data.fruits.length) * 100));
-    index = binarySearch(data.meats, meatIn);
-    setMeatPct(Math.floor((index / data.meats.length) * 100));
-    index = binarySearch(data.fish, fishIn);
-    setFishPct(Math.floor((index / data.fish.length) * 100));
-    index = binarySearch(data.misc, miscIn);
-    setMiscPct(Math.floor((index / data.misc.length) * 100));
-    index = binarySearch(data.total, wineIn+fruitIn+meatIn+fishIn+miscIn);
-    setTotalPct(Math.floor((index / data.total.length) * 100));
+    let index = binarySearch(data.Income, incomeIn);
+    setIncomePct(Math.floor((index / data.Income.length) * 100));
+    index = binarySearch(data.Wine, wineIn);
+    setWinePct(Math.floor((index / data.Wine.length) * 100));
+    index = binarySearch(data.Fruit, fruitIn);
+    setFruitPct(Math.floor((index / data.Fruit.length) * 100));
+    index = binarySearch(data.Meat, meatIn);
+    setMeatPct(Math.floor((index / data.Meat.length) * 100));
+    index = binarySearch(data.Fish, fishIn);
+    setFishPct(Math.floor((index / data.Fish.length) * 100));
+    index = binarySearch(data.Miscellaneous, miscIn);
+    setMiscPct(Math.floor((index / data.Miscellaneous.length) * 100));
+    index = binarySearch(data.TotalSpent, wineIn+fruitIn+meatIn+fishIn+miscIn);
+    setTotalPct(Math.floor((index / data.TotalSpent.length) * 100));
     setCurrState([false, false, false, true]);
   }
 
