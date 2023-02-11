@@ -30,7 +30,7 @@ const validatePassword = (email, password, confirmPassword) =>
 
 export default function App() {
 
-  const data = require("./data.json");
+  const data = require("./SpendingDictionary.json");
 
   // 0 - login, 1 - create acc, 2 - insert user stats, 3 - display user results
   const [currState, setCurrState] = useState([true, false, false, false]);
@@ -39,12 +39,12 @@ export default function App() {
   const [pass, setPass] = useState("");
   const [invalidCreds, setInvalidCreds] = useState(false);
 
-  const [incomeIn, setIncomeIn] = useState(0);
-  const [wineIn, setWineIn] = useState(0);
-  const [fruitIn, setFruitIn] = useState(0);
-  const [meatIn, setMeatIn] = useState(0);
-  const [fishIn, setFishIn] = useState(0);
-  const [miscIn, setMiscIn] = useState(0);
+  const [incomeIn, setIncomeIn] = useState(-1);
+  const [wineIn, setWineIn] = useState(-1);
+  const [fruitIn, setFruitIn] = useState(-1);
+  const [meatIn, setMeatIn] = useState(-1);
+  const [fishIn, setFishIn] = useState(-1);
+  const [miscIn, setMiscIn] = useState(-1);
 
   const [incomePct, setIncomePct] = useState(0);
   const [winePct, setWinePct] = useState(0);
@@ -126,12 +126,12 @@ export default function App() {
   }
 
   const backToInputs = () => {
-    setIncomeIn(0);
-    setWineIn(0);
-    setFruitIn(0);
-    setMeatIn(0);
-    setFishIn(0);
-    setMiscIn(0);
+    setIncomeIn(-1);
+    setWineIn(-1);
+    setFruitIn(-1);
+    setMeatIn(-1);
+    setFishIn(-1);
+    setMiscIn(-1);
     setCurrState([false, false, true, false]);
   }
 
