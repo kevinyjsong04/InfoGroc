@@ -1,6 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+//import fire from "./components/fire";
+//import { Register } from './components/auth/Register.js';
+
+const validatePassword = (email, password, confirmPassword) => 
+    {
+  
+        // Checks if password is blank, or if passwords do not match, or if password is shorter than 6 characters
+        if (password == '') {
+            alert("Password cannot be blank!")
+            return false;
+        }
+        else if (password != confirmPassword) {
+            alert("Your passwords do not match!");
+            return false;
+        }
+        else if (password.length < 6) {
+            alert("Password must be more than 6 characters.");
+            return false;
+        } else {
+          return true;
+        }
+
+    }
+
+    var loginUserPool = [];
+    var loginPassPool = [];
 
 export default function App() {
 
@@ -29,8 +55,10 @@ export default function App() {
   const [totalPct, setTotalPct] = useState(0);
 
   const login = () => {
-    let userAuthed = true;//set to false later
-    //USER AUTH LOGIC GOES HERE
+    let userAuthed = false;
+    if (loginUserPool.includes(user) && loginPassPool.includes(pass)){
+      userAuthed = true;
+    }
     if (userAuthed) {
       setCurrState([false, false, true, false]);
     } else {
@@ -39,11 +67,19 @@ export default function App() {
   };
 
   const goToCreateAcc = () => {
+    setUser("");
+    setPass("");
     setCurrState([false, true, false, false]);
   }
 
   const createAcc = () => {
-    //WRITE NEW USER LOGIN DATA TO DATABASE
+    if (validatePassword(user, pass, pass)) {
+      loginUserPool.push(user);
+      loginPassPool.push(pass);
+    }
+    setUser("");
+    setPass("");
+    setInvalidCreds(false);
     setCurrState([true, false, false, false]);
   }
 
@@ -85,6 +121,7 @@ export default function App() {
   const logout = () => {
     setUser("");
     setPass("");
+    setInvalidCreds(false);
     setCurrState([true, false, false, false]);
   }
 
@@ -95,9 +132,9 @@ export default function App() {
     setMeatIn(0);
     setFishIn(0);
     setMiscIn(0);
-    setTotalIn(0);
     setCurrState([false, false, true, false]);
   }
+
 
   return (
     <View style={styles.container}>
