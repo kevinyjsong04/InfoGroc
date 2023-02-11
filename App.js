@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
   title: {
     color: '#000',
     fontWeight: 'bold',
