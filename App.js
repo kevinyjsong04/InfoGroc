@@ -4,12 +4,29 @@ import { useState } from 'react';
 
 export default function App() {
 
+  const data = require("./data.json");
+
   // 0 - login, 1 - create acc, 2 - insert user stats, 3 - display user results
   const [currState, setCurrState] = useState([true, false, false, false]);
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [invalidCreds, setInvalidCreds] = useState(false);
+
+  const [incomeIn, setIncomeIn] = useState(0);
+  const [wineIn, setWineIn] = useState(0);
+  const [fruitIn, setFruitIn] = useState(0);
+  const [meatIn, setMeatIn] = useState(0);
+  const [fishIn, setFishIn] = useState(0);
+  const [miscIn, setMiscIn] = useState(0);
+
+  const [incomePct, setIncomePct] = useState(0);
+  const [winePct, setWinePct] = useState(0);
+  const [fruitPct, setFruitPct] = useState(0);
+  const [meatPct, setMeatPct] = useState(0);
+  const [fishPct, setFishPct] = useState(0);
+  const [miscPct, setMiscPct] = useState(0);
+  const [totalPct, setTotalPct] = useState(0);
 
   const login = () => {
     let userAuthed = true;//set to false later
@@ -30,16 +47,55 @@ export default function App() {
     setCurrState([true, false, false, false]);
   }
 
+  const binarySearch = (arr, targ) => {
+    let l = 0;
+    let r = arr.length-1;
+    let mid;
+    while (l <= r) {
+      mid = Math.floor((l+r)/2);
+      if (arr[mid] == targ) {
+        return mid;
+      } else if (arr[mid] > targ) {
+        r = mid-1;
+      } else {
+        l = mid+1;
+      }
+    }
+    return mid;
+  }
+
   const goToDisplay = () => {
-    //SEND, CALCULATE, RETRIEVE, UPDATE DISPLAYS HERE
+    let index = binarySearch(data.incomes, incomeIn);
+    setIncomePct(Math.floor((index / data.incomes.length) * 100));
+    index = binarySearch(data.wine, wineIn);
+    setWinePct(Math.floor((index / data.wine.length) * 100));
+    index = binarySearch(data.fruits, fruitIn);
+    setFruitPct(Math.floor((index / data.fruits.length) * 100));
+    index = binarySearch(data.meats, meatIn);
+    setMeatPct(Math.floor((index / data.meats.length) * 100));
+    index = binarySearch(data.fish, fishIn);
+    setFishPct(Math.floor((index / data.fish.length) * 100));
+    index = binarySearch(data.misc, miscIn);
+    setMiscPct(Math.floor((index / data.misc.length) * 100));
+    index = binarySearch(data.total, wineIn+fruitIn+meatIn+fishIn+miscIn);
+    setTotalPct(Math.floor((index / data.total.length) * 100));
     setCurrState([false, false, false, true]);
   }
 
   const logout = () => {
+    setUser("");
+    setPass("");
     setCurrState([true, false, false, false]);
   }
 
   const backToInputs = () => {
+    setIncomeIn(0);
+    setWineIn(0);
+    setFruitIn(0);
+    setMeatIn(0);
+    setFishIn(0);
+    setMiscIn(0);
+    setTotalIn(0);
     setCurrState([false, false, true, false]);
   }
 
@@ -84,34 +140,36 @@ export default function App() {
       </Modal>
       <Modal animationType ="slide" visible={currState[2]}>
       <Text style={styles.inputFiller}>.</Text>
-      <Text style={styles.inputBelow}>Enter info below:</Text>
+      <Text style={styles.inputBelow}>Enter $ spent per trip:</Text>
         <TextInput
           style={styles.loginBoxes}
-          placeholder="Income"
+          placeholder="Annual Income"
+          onChangeText={(val) => setIncomeIn(val)}
         />
         <TextInput
           style={styles.loginBoxes}
-          placeholder="stuff"
+          placeholder="Wine"
+          onChangeText={(val) => setWineIn(val)}
         />
         <TextInput
           style={styles.loginBoxes}
-          placeholder="stuff"
+          placeholder="Fruits"
+          onChangeText={(val) => setFruitIn(val)}
         />
         <TextInput
           style={styles.loginBoxes}
-          placeholder="stuff"
+          placeholder="Meat"
+          onChangeText={(val) => setMeatIn(val)}
         />
         <TextInput
           style={styles.loginBoxes}
-          placeholder="stuff"
+          placeholder="Fish"
+          onChangeText={(val) => setFishIn(val)}
         />
         <TextInput
           style={styles.loginBoxes}
-          placeholder="stuff"
-        />
-        <TextInput
-          style={styles.loginBoxes}
-          placeholder="stuff"
+          placeholder="Miscellaneous"
+          onChangeText={(val) => setMiscIn(val)}
         />
         <TouchableOpacity style={styles.loginButton} onPress={goToDisplay}> 
           <Text style={styles.loginButtonText}>Go</Text>
@@ -123,8 +181,14 @@ export default function App() {
       <Modal animationType ="slide" visible={currState[3]}>
       <Text style={styles.displayFiller}>.</Text>
       <Text style={styles.reportAbove}>Report:</Text>
-        <Text>RETRIEVE from json here</Text>
-        <TouchableOpacity style={styles.loginButton} onPress={backToInputs}> 
+        <Text style={styles.reportItem}>You are in the {incomePct}th percentile of incomes.</Text>
+        <Text style={styles.reportItem}>You spend in the {winePct}th percentile for wine.</Text>
+        <Text style={styles.reportItem}>You spend in the {fruitPct}th percentile for fruits.</Text>
+        <Text style={styles.reportItem}>You spend in the {meatPct}th percentile for meats.</Text>
+        <Text style={styles.reportItem}>You spend in the {fishPct}th percentile for fish.</Text>
+        <Text style={styles.reportItem}>You are in the {miscPct}th percentile for miscellaneous costs.</Text>
+        <Text style={styles.reportItem}>You are in the {totalPct}th percentile for total costs.</Text>
+        <TouchableOpacity style={styles.backButton} onPress={backToInputs}> 
           <Text style={styles.loginButtonText}>Back</Text>
         </TouchableOpacity>
       </Modal>
@@ -138,6 +202,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  reportItem: {
+    marginVertical: 15,
+    paddingHorizontal: 60,
   },
   title: {
     color: '#000',
@@ -154,17 +222,20 @@ const styles = StyleSheet.create({
   },
   inputFiller: {
     color: "#fff",
-    marginVertical: 65,
+    marginVertical: 75,
   },
   displayFiller: {
     color: "#fff",
-    marginVertical: 50,
+    marginVertical: 65,
   },
   inputBelow: {
-    paddingHorizontal: 140,
+    marginHorizontal: 120,
+    marginBottom: 15,
   },
   reportAbove: {
-    paddingHorizontal: 170,
+    paddingHorizontal: 168,
+    fontWeight: 'bold',
+    marginBottom: 30,
   },
   loginError: {
     color: "#f00",
@@ -194,6 +265,17 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: 8,
+    marginHorizontal: 124,
+    paddingVertical: 8,
+    borderWidth: 2,
+    borderColor: '#777',
+    borderRadius: 8,
+    backgroundColor: '#333',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backButton: {
+    marginTop: 20,
     marginHorizontal: 124,
     paddingVertical: 8,
     borderWidth: 2,
