@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'reac
 import { useState } from 'react';
 //import fire from "./components/fire";
 //import { Register } from './components/auth/Register.js';
+import * as Progress from 'react-native-progress';
+
 
 const validatePassword = (email, password, confirmPassword) => 
     {
@@ -219,12 +221,19 @@ export default function App() {
       <Text style={styles.displayFiller}>.</Text>
       <Text style={styles.reportAbove}>Report:</Text>
         <Text style={styles.reportItem}>You are in the {incomePct}th percentile of incomes.</Text>
+        <Progress.Bar style ={styles.bars} progress={incomePct/100} width={200} color={'#ebd234'} />
         <Text style={styles.reportItem}>You spend in the {winePct}th percentile for wine.</Text>
+        <Progress.Bar style ={styles.bars} progress={winePct/100} width={200} color={'#8100b0'} />
         <Text style={styles.reportItem}>You spend in the {fruitPct}th percentile for fruits.</Text>
+        <Progress.Bar style ={styles.bars} progress={fruitPct/100} width={200} color={'#2bff00'} />
         <Text style={styles.reportItem}>You spend in the {meatPct}th percentile for meats.</Text>
+        <Progress.Bar style ={styles.bars} progress={meatPct/100} width={200} color={'#cc000e'} />
         <Text style={styles.reportItem}>You spend in the {fishPct}th percentile for fish.</Text>
+        <Progress.Bar style ={styles.bars} progress={fishPct/100} width={200} color={'#009dff'} />
         <Text style={styles.reportItem}>You are in the {miscPct}th percentile for miscellaneous costs.</Text>
+        <Progress.Bar style ={styles.bars} progress={miscPct/100} width={200} color={'#b85c00'} />
         <Text style={styles.reportItem}>You are in the {totalPct}th percentile for total costs.</Text>
+        <Progress.Bar style ={styles.bars} progress={totalPct/100} width={200} color={'#ffda5e'} />
         <TouchableOpacity style={styles.backButton} onPress={backToInputs}> 
           <Text style={styles.loginButtonText}>Back</Text>
         </TouchableOpacity>
@@ -234,6 +243,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  bars: {
+    marginLeft: 94,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -263,16 +275,17 @@ const styles = StyleSheet.create({
   },
   displayFiller: {
     color: "#fff",
-    marginVertical: 65,
+    marginVertical: 55,
   },
   inputBelow: {
     marginHorizontal: 120,
     marginBottom: 15,
   },
   reportAbove: {
-    paddingHorizontal: 168,
+    paddingHorizontal: 165,
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 10,
+    fontSize: 16,
   },
   loginError: {
     color: "#f00",
@@ -312,7 +325,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   backButton: {
-    marginTop: 20,
+    marginTop: 30,
     marginHorizontal: 124,
     paddingVertical: 8,
     borderWidth: 2,
