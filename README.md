@@ -1,6 +1,8 @@
 # InfoGroc
 Hacklytics 2023 Finance track project
 
+Created by: Kevin Song, Ben Dai, Phillip Zhang, Ashley Mendez
+
 How to Setup Testing Environment:
 
 1. Install most recent version of Node.js
