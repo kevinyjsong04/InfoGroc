@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Modal, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
 //import fire from "./components/fire";
 //import { Register } from './components/auth/Register.js';
 import * as Progress from 'react-native-progress';
-
 
 const validatePassword = (email, password, confirmPassword) => 
     {
@@ -103,19 +102,19 @@ export default function App() {
   }
 
   const goToDisplay = () => {
-    let index = binarySearch(data.Income, incomeIn);
+    let index = binarySearch(data.Income, parseInt(incomeIn));
     setIncomePct(Math.floor((index / data.Income.length) * 100));
-    index = binarySearch(data.Wine, wineIn);
+    index = binarySearch(data.Wine, parseInt(wineIn));
     setWinePct(Math.floor((index / data.Wine.length) * 100));
-    index = binarySearch(data.Fruit, fruitIn);
+    index = binarySearch(data.Fruit, parseInt(fruitIn));
     setFruitPct(Math.floor((index / data.Fruit.length) * 100));
-    index = binarySearch(data.Meat, meatIn);
+    index = binarySearch(data.Meat, parseInt(meatIn));
     setMeatPct(Math.floor((index / data.Meat.length) * 100));
-    index = binarySearch(data.Fish, fishIn);
+    index = binarySearch(data.Fish, parseInt(fishIn));
     setFishPct(Math.floor((index / data.Fish.length) * 100));
-    index = binarySearch(data.Miscellaneous, miscIn);
+    index = binarySearch(data.Miscellaneous, parseInt(miscIn));
     setMiscPct(Math.floor((index / data.Miscellaneous.length) * 100));
-    index = binarySearch(data.TotalSpent, wineIn+fruitIn+meatIn+fishIn+miscIn);
+    index = binarySearch(data.TotalSpent, parseInt(wineIn)+parseInt(fruitIn)+parseInt(meatIn)+parseInt(fishIn)+parseInt(miscIn));
     setTotalPct(Math.floor((index / data.TotalSpent.length) * 100));
     setCurrState([false, false, false, true]);
   }
@@ -142,6 +141,7 @@ export default function App() {
     <View style={styles.container}>
       <Modal animationType='slide' visible={currState[0]}>
         <Text style={styles.loginFiller}>.</Text>
+        <Image style={styles.img}source={require("./InfoGrocLogo.png")}></Image>
         <Text style ={styles.title}>InfoGroc</Text>
         {invalidCreds && <Text style={styles.loginError}>Invalid credentials.</Text>}
         <TextInput
@@ -243,6 +243,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  img: {
+    marginLeft: 125,
+    marginBottom: 20,
+    marginTop: -140,
+  },
   bars: {
     marginLeft: 94,
   },
