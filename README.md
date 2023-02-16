@@ -1,3 +1,4 @@
+![alt text](https://github.com/kevinyjsong04/InfoGroc/blob/main/InfoGrocLogo.png?raw=true)
 # InfoGroc
 Hacklytics 2023 Finance track project
 
