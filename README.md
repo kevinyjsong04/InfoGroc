@@ -14,6 +14,7 @@ How to Setup Testing Environment:
 7. Run 'npx expo start --tunnel' while phone is connected to same wifi
 8. Scan QR code on terminal from phone
 
+For a video demo or to see pictures of the working app, go to https://devpost.com/software/infogroc.
 
 # Inspiration
 Being college students,, we're often not aware of how much we are spending every time we visit the grocery store. It's especially difficult to compare your spending to others' spending, and even more so when you want to know the breakdown by categories. Additionally, its difficult for those less well off financially to know whether or not they're spending in the right categories in comparison to those in a similar financial situation. Thus, we came up with an app that would be able to track a user's spending on groceries broken down by category and compare it to data so the user can evaluate where they might focus their spending on.
